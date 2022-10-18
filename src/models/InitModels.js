@@ -1,4 +1,4 @@
-import Users from "./users.models";
+const Users = require('./users.models') 
 
 const initModel = ()=>{
     Users

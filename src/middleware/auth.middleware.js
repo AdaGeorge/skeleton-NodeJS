@@ -1,6 +1,5 @@
 //? Middleware para proteger rutas
 
-const passport = require("passport");
 const { jwtSecret } = require("../config");
 const { getUserById } = require("../users/users.controllers");
 
@@ -21,7 +20,7 @@ const ExtractJwt = require("passport-jwt").ExtractJwt;
 module.exports = (passport) => {
   const options = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme("jwt"),
-    secretOrKey: jwtSecret,
+    secretOrKey: jwtSecret
   };
 
   passport.use(

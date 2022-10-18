@@ -104,9 +104,9 @@ const getMyUser = (req, res) => {
 
 const updateMyUser = (req, res) => {
     const id = req.user.id 
-    const { firstName, lastName, phone, birthday, gender, country, status } = req.body
+    const { firstName, lastName, phone, birthday, gender, country } = req.body
 
-    usersControllers.updateUser(id, {firstName, lastName, phone, birthday, gender, country, status} )
+    usersControllers.updateUser(id, {firstName, lastName, phone, birthday, gender, country } )
     .then(data=>{
         res.status(200).json(data)
     })
@@ -117,16 +117,12 @@ const updateMyUser = (req, res) => {
 
 const deleteMyUser = (req, res) =>{
     const id = req.user.id
-    usersControllers.deleteUser(id)
-    .then(response => {
-        if(response){
-            res.status(204).json()
-        }else{
-            res.status(404).json({message: 'Invalid ID'})
-        }
+    usersControllers.updateUser(id, {status: 'inactive'})
+    .then((response) => {
+        res.status(200).json({message: 'Your user was deleted succesfully!'})
     })
     .catch(err=>{
-        res.status(404).json({message: err.message})
+        res.status(400).json({message: err.message})
     })
 }
 
