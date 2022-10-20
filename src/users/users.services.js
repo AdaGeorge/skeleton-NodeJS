@@ -44,8 +44,8 @@ const registerUser = (req, res) =>{
     }else{
         res.status(400).json({ message: 'All fields must be completed', 
         fields: {
-            first_name: 'string',
-            last_name: 'string',
+            firstName: 'string',
+            lastName: 'string',
             email: 'example@example.com',
             password:'string',
             phone: '+52 321234312',

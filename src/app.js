@@ -8,6 +8,8 @@ const initModels = require('./models/InitModels')
 //? Routes
 const userRouter = require('./users/users.router')
 const authRouter = require('./auth/auth.router')
+const categoriesRouter = require('./categories/categories.router')
+const postsRouter = require('./posts/posts.router')
 
 //? Initial configs
 const app = express()
@@ -49,6 +51,8 @@ app.get('/', (req, res)=>{
 //? Rutas
 app.use('/api/v1/users', userRouter)
 app.use('/api/v1/auth', authRouter)
+app.use('/api/v1/categories', categoriesRouter)
+app.use('/api/v1/posts', postsRouter)
 
 
 
