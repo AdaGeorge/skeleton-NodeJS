@@ -18,8 +18,8 @@ const Posts = db.define('posts', {
         type: DataTypes.TEXT,
         allowNull: false
     },
-    createdBy: {
-        field: 'created_by',
+    userId: {
+        field: 'user_id',
         type: DataTypes.UUID,
         allowNull: false,
         references: {

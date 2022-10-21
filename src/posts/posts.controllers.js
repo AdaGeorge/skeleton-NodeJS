@@ -5,26 +5,56 @@ const Categories = require("../models/categories.models");
 
 const getAllPosts = async () => {
   const data = await Posts.findAll({
+    attributes: {
+      exclude: ["userId", "categoryId", "updatedAt", "createdAt"],
+    },
     include: [
       {
-        model: Users
+        model: Users,
+        as: "user",
+        attributes: ["id", "firstName", "lastName", "email"],
       },
       {
         model: Categories,
-        attributes:{
-          exclude: ['id']
-        }
-      }
-    ]
+        attributes: {
+          exclude: ["id"],
+        },
+      },
+    ],
+  });
+  return data;
+};
+
+const getPostsByCategory = async (categoryId) => {
+  const data = await Posts.findAll({
+    where: {
+      categoryId,
+    },
   });
   return data;
 };
 
 const getPostById = async (id) => {
-  const data = await Users.findOne({
+  const data = await Posts.findOne({
     where: {
-      id: id
+      id: id,
     },
+    attributes: {
+      exclude: ["userId", "categoryId", "updatedAt", "createdAt"],
+    },
+    include: [
+      {
+        model: Users,
+        as: "user",
+        attributes: ["id", "firstName", "lastName", "email"],
+      },
+      {
+        model: Categories,
+        attributes: {
+          exclude: ["id"],
+        },
+      },
+    ],
   });
   return data;
 };
@@ -34,18 +64,16 @@ const createPost = async (data) => {
     id: uuid.v4(),
     title: data.title,
     content: data.content,
-    createdBy: data.userId,
-    categoryId: data.categoryId
+    userId: data.userId,
+    categoryId: data.categoryId,
   };
   const response = await Posts.create(newPost);
   return response;
 };
 
-
-
-
 module.exports = {
   getAllPosts,
   getPostById,
-  createPost
+  createPost,
+  getPostsByCategory
 };
